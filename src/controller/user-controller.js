@@ -34,8 +34,23 @@ const get = async (req, res, next) => {
   }
 };
 
+const update = async (req, res, next) => {
+  try {
+    id = req.user.id;
+    request = req.body;
+    request.id = id;
+    const result = await userService.update(request);
+    res.status(200).json({
+      data: result,
+    });
+  } catch (err) {
+    next(err);
+  }
+};
+
 export default {
   register,
   login,
   get,
+  update,
 };
