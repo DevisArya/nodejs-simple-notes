@@ -1,6 +1,6 @@
 import { prismaClient } from "../app/database.js";
 import { ResponseError } from "../error/response-error.js";
-import { getValidation, loginValidation, registerValidation, updateValidation } from "../validation/user-validation.js";
+import { getUserValidation, loginValidation, registerValidation, updateValidation } from "../validation/user-validation.js";
 import { validate } from "../validation/validation.js";
 import bcrypt from "bcrypt";
 import { PrismaClient } from "@prisma/client";
@@ -69,7 +69,7 @@ const login = async (request) => {
 };
 
 const get = async (request) => {
-  const id = validate(getValidation, request);
+  const id = validate(getUserValidation, request);
 
   const user = await PrismaClient.user.findUnique({
     where: {
@@ -129,7 +129,7 @@ const update = async (request) => {
 };
 
 const logout = async (request) => {
-  const userId = validate(getValidation, request);
+  const userId = validate(getUserValidation, request);
 
   const user = await prismaClient.user.findUnique({
     where: {

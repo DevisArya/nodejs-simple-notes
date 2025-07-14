@@ -11,7 +11,7 @@ const loginValidation = Joi.object({
   password: Joi.string().max(100).required(),
 });
 
-const getValidation = Joi.string().max(100).required();
+const getUserValidation = Joi.string().max(100).required();
 
 const updateValidation = Joi.object({
   id: Joi.string().guid({ version: "uuidv4" }).required(),

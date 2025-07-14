@@ -24,7 +24,7 @@ const login = async (req, res, next) => {
 
 const get = async (req, res, next) => {
   try {
-    id = req.user.id;
+    const id = req.user.id;
     const result = await userService.get(id);
     res.status(200).json({
       data: result,
@@ -36,12 +36,28 @@ const get = async (req, res, next) => {
 
 const update = async (req, res, next) => {
   try {
-    id = req.user.id;
-    request = req.body;
+    const id = req.user.id;
+    const request = req.body;
     request.id = id;
+
     const result = await userService.update(request);
     res.status(200).json({
       data: result,
+    });
+  } catch (err) {
+    next(err);
+  }
+};
+
+const logout = async (req, res, next) => {
+  try {
+    const id = req.user.id;
+    const request = req.body;
+    request.id = id;
+
+    const result = await userService.logout(request);
+    res.status(200).json({
+      data: "OK",
     });
   } catch (err) {
     next(err);
@@ -53,4 +69,5 @@ export default {
   login,
   get,
   update,
+  logout,
 };
